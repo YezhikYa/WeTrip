@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "28383855363",
+    "project_id": "wetrip-n090806",
+    "storage_bucket": "wetrip-n090806.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:28383855363:android:f37e3b74285d78d8ca5f36",
+        "android_client_info": {
+          "package_name": "com.yezhik_ya.wetrip"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD2YzGrJZm01Al-22_nag63vPFhFLDFZP4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
