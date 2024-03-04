@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.yezhik_ya.repository"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         minSdk = 24
