@@ -1,14 +1,36 @@
 package com.yezhik_ya.wetrip.ACTIVITIES;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+
+import com.yezhik_ya.helper.inputValidators.DateRule;
+import com.yezhik_ya.helper.inputValidators.EmailRule;
+import com.yezhik_ya.helper.inputValidators.NameRule;
+import com.yezhik_ya.helper.inputValidators.PasswordRule;
+import com.yezhik_ya.helper.inputValidators.PhoneRule;
+import com.yezhik_ya.helper.inputValidators.Rule;
+import com.yezhik_ya.helper.inputValidators.RuleOperation;
+import com.yezhik_ya.helper.inputValidators.Validator;
+import com.yezhik_ya.viewmodel.GenericViewModelFactory;
+import com.yezhik_ya.viewmodel.UsersViewModel;
 import com.yezhik_ya.wetrip.R;
+
+import java.time.LocalDate;
 
 public class MainActivity extends BaseActivity
 {
-
+    private EditText etEmail, etPassword;
+    private Button btnLogin;
+    private TextView tvRegister;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -20,11 +42,71 @@ public class MainActivity extends BaseActivity
     @Override
     protected void initializeViews()
     {
+        etEmail = findViewById(R.id.etEmail);
+        etPassword = findViewById(R.id.etPassword);
+        btnLogin = findViewById(R.id.btnLogin);
+        tvRegister = findViewById(R.id.tvRegister);
+
         setListeners();
     }
     @Override
     protected void setListeners()
     {
+        tvRegister.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
+                startActivityForResult(intent, 0);
+            }
+        });
+        btnLogin.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                if(validate())
+                {
+                    Intent intent = new Intent(getApplicationContext(), TripsActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
+    }
+    @Override
+    public void setValidation()
+    {
+        Validator.add(new Rule(etEmail, RuleOperation.REQUIRED, "Please enter your email"));
 
+        Validator.add(new EmailRule(etEmail, RuleOperation.TEXT, "Email is wrong"));
+
+        Validator.add(new Rule(etPassword, RuleOperation.REQUIRED, "Please enter your password"));
+
+        Validator.add(new PasswordRule(etPassword, RuleOperation.PASSWORD, "Password is incorrect"));
+
+
+    }
+    @Override
+    public boolean validate()
+    {
+        return Validator.validate();
+    }
+    private void setObservers()
+    {
+        GenericViewModelFactory<UsersViewModel> factory = new GenericViewModelFactory<>(getApplication(), UsersViewModel::new);
+        usersViewModel = new ViewModelProvider(this, factory).get(UsersViewModel.class);
+
+        usersViewModel.getSuccessOperation().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if (aBoolean){
+                    Toast.makeText(RegisterActivity.this, "Saved successfully!", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(RegisterActivity.this, "Error!!!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 }
