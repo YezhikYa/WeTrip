@@ -92,21 +92,4 @@ public class MainActivity extends BaseActivity
     {
         return Validator.validate();
     }
-    private void setObservers()
-    {
-        GenericViewModelFactory<UsersViewModel> factory = new GenericViewModelFactory<>(getApplication(), UsersViewModel::new);
-        usersViewModel = new ViewModelProvider(this, factory).get(UsersViewModel.class);
-
-        usersViewModel.getSuccessOperation().observe(this, new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean aBoolean) {
-                if (aBoolean){
-                    Toast.makeText(RegisterActivity.this, "Saved successfully!", Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    Toast.makeText(RegisterActivity.this, "Error!!!", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }
 }
