@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.yezhik_ya.helper.inputValidators.DateRule;
 import com.yezhik_ya.helper.inputValidators.EmailRule;
+import com.yezhik_ya.helper.inputValidators.EntryValidation;
 import com.yezhik_ya.helper.inputValidators.NameRule;
 import com.yezhik_ya.helper.inputValidators.PasswordRule;
 import com.yezhik_ya.helper.inputValidators.PhoneRule;
@@ -26,7 +27,7 @@ import com.yezhik_ya.wetrip.R;
 
 import java.time.LocalDate;
 
-public class MainActivity extends BaseActivity
+public class MainActivity extends BaseActivity implements EntryValidation
 {
     private EditText etEmail, etPassword;
     private Button btnLogin;
