@@ -1,16 +1,25 @@
 package com.yezhik_ya.wetrip.ACTIVITIES;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.yezhik_ya.helper.DateUtil;
 import com.yezhik_ya.helper.inputValidators.DateRule;
 import com.yezhik_ya.helper.inputValidators.EmailRule;
@@ -28,10 +37,14 @@ import com.yezhik_ya.wetrip.R;
 
 import java.time.LocalDate;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class RegisterActivity extends BaseActivity implements EntryValidation
 {
     private EditText etName, etLastName, etBirth, etPhone, etEmail, etPassword, etRetype;
     private Button btnRegister, btnCancel;
+    private CircleImageView civPicture;
+    private ImageView ivCamera;
     private UsersViewModel usersViewModel;
     private User oldUser;
     @Override
@@ -56,6 +69,8 @@ public class RegisterActivity extends BaseActivity implements EntryValidation
         etRetype = findViewById(R.id.etRetype);
         btnRegister = findViewById(R.id.btnRegister);
         btnCancel = findViewById(R.id.btnCancel);
+        civPicture = findViewById(R.id.civPicture);
+        ivCamera = findViewById(R.id.ivCamera);
 
         setListeners();
     }
@@ -103,6 +118,14 @@ public class RegisterActivity extends BaseActivity implements EntryValidation
                 finish();
             }
         });
+        ivCamera.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+
+            }
+        });
     }
     @Override
     public void setValidation()
@@ -146,15 +169,16 @@ public class RegisterActivity extends BaseActivity implements EntryValidation
         GenericViewModelFactory<UsersViewModel> factory = new GenericViewModelFactory<>(getApplication(), UsersViewModel::new);
         usersViewModel = new ViewModelProvider(this, factory).get(UsersViewModel.class);
 
-        usersViewModel.getSuccessOperation().observe(this, new Observer<Boolean>() {
+        usersViewModel.getSuccessOperation().observe(this, new Observer<Boolean>()
+        {
             @Override
-            public void onChanged(Boolean aBoolean) {
-                if (aBoolean){
+            public void onChanged(Boolean aBoolean)
+            {
+                if (aBoolean)
                     Toast.makeText(RegisterActivity.this, "Saved successfully!", Toast.LENGTH_SHORT).show();
-                }
-                else {
+
+                else
                     Toast.makeText(RegisterActivity.this, "Error!!!", Toast.LENGTH_SHORT).show();
-                }
             }
         });
     }
@@ -172,7 +196,6 @@ public class RegisterActivity extends BaseActivity implements EntryValidation
             }
         }
     }
-
     private void setData()
     {
         etName.setText(oldUser.getName());

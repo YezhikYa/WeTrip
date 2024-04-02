@@ -58,8 +58,8 @@ public class MainActivity extends BaseActivity implements EntryValidation
             @Override
             public void onClick(View v)
             {
-                Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
-                startActivityForResult(intent, 0);
+                Intent register = new Intent(MainActivity.this, RegisterActivity.class);
+                startActivityForResult(register, 0);
             }
         });
         btnLogin.setOnClickListener(new View.OnClickListener()
