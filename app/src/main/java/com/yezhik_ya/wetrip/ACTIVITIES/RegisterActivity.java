@@ -13,13 +13,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.yezhik_ya.helper.DateUtil;
 import com.yezhik_ya.helper.inputValidators.DateRule;
 import com.yezhik_ya.helper.inputValidators.EmailRule;
